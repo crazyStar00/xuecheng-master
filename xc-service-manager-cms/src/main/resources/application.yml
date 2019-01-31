@@ -1,0 +1,7 @@
+server:
+  port: 31001
+spring:
+  data:
+    mongodb:
+      database: xc_cms
+      uri: mongodb://58.87.127.138:27017
