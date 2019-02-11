@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.xuecheng.api"})
+@ComponentScan(basePackages = {"com.xuecheng.framework"})
 @ComponentScan(basePackages = {"com.xuecheng.framework.domain.cms"})
 public class ManagerCMSApplication {
     public static void main(String[] args) {
