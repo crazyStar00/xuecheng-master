@@ -81,6 +81,7 @@ public class CmsPageService {
             cmsPage1.setPageWebPath(cmsPage.getPageWebPath());
             cmsPage1.setPagePhysicalPath(cmsPage.getPagePhysicalPath());
             cmsPage1.setPageType(cmsPage.getPageType());
+            cmsPage1.setDataUrl(cmsPage.getDataUrl());
             CmsPage save = cmsPageRepository.save(cmsPage1);
             log.info("更新{} ：{}", save != null ? "成功" : "失败", id);
             return Optional.of(save);
