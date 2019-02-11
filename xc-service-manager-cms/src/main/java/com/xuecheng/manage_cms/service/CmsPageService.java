@@ -45,9 +45,12 @@ public class CmsPageService {
         if (StringUtils.isNotEmpty(queryPageRequest.getPageName())) {
             cmsPage.setPageName(queryPageRequest.getPageName());
         }
-
+        if (StringUtils.isNotEmpty(queryPageRequest.getPageType())) {
+            cmsPage.setPageType(queryPageRequest.getPageType());
+        }
         ExampleMatcher matching = ExampleMatcher.matching()
-                .withMatcher("pageAliase", ExampleMatcher.GenericPropertyMatchers.contains());
+                .withMatcher("pageAliase", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("pageName", ExampleMatcher.GenericPropertyMatchers.contains());
 
         Example<CmsPage> example = Example.of(cmsPage, matching);
         Page<CmsPage> cmsPages = cmsPageRepository.findAll(example, pageRequest);
@@ -79,16 +82,18 @@ public class CmsPageService {
             cmsPage1.setPagePhysicalPath(cmsPage.getPagePhysicalPath());
             cmsPage1.setPageType(cmsPage.getPageType());
             CmsPage save = cmsPageRepository.save(cmsPage1);
-            log.info("更新{} ：{}", save != null ? "成功" : "失败",id);
+            log.info("更新{} ：{}", save != null ? "成功" : "失败", id);
             return Optional.of(save);
         }
 
         return optional;
     }
-    public Optional<CmsPage> get(String id){
+
+    public Optional<CmsPage> get(String id) {
         return cmsPageRepository.findById(id);
     }
-    public void deleteById(String id){
+
+    public void deleteById(String id) {
         cmsPageRepository.deleteById(id);
     }
 }

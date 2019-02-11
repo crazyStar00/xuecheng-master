@@ -35,4 +35,8 @@ public class QueryPageRequest {
      * 模板id
      */
     String temolateId;
+    /**
+     * 页面类型
+     */
+    String pageType;
 }
