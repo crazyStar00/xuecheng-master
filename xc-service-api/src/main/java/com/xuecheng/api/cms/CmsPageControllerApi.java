@@ -4,10 +4,13 @@ import com.xuecheng.framework.domain.cms.CmsPage;
 import com.xuecheng.framework.domain.cms.request.QueryPageRequest;
 import com.xuecheng.framework.domain.cms.response.CmsPageResult;
 import com.xuecheng.framework.model.response.QueryResponseResult;
+import com.xuecheng.framework.model.response.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author star
@@ -24,4 +27,10 @@ public interface CmsPageControllerApi {
 
     @ApiOperation("添加页面")
     CmsPageResult add(CmsPage cmsPage);
+
+    CmsPageResult edit(String id, CmsPage cmsPage);
+
+    CmsPageResult get(String id);
+
+    ResponseResult delete(String id);
 }

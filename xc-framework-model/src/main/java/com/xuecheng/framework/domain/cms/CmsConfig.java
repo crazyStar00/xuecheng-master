@@ -15,9 +15,18 @@ import java.util.List;
 @Document(collection = "cms_config")
 public class CmsConfig {
 
+    /**
+     * 主键
+     */
     @Id
     private String id;
+    /**
+     * 数据模型的名称
+     */
     private String name;
+    /**
+     * 数据模型项目
+     */
     private List<CmsConfigModel> model;
 
 }

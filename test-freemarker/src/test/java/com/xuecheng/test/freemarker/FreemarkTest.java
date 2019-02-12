@@ -9,9 +9,12 @@ import org.apache.commons.io.IOUtils;
 import org.assertj.core.util.Maps;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +25,10 @@ import java.util.Map;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class FreemarkTest {
+
+    @Autowired
+    RestTemplate restTemplate;
+
     //基于ftl文件生成html文件
     @Test
     public void generatorHtmlByFtl() throws IOException, TemplateException {
@@ -56,7 +63,7 @@ public class FreemarkTest {
         //configuration.setDirectoryForTemplateLoading(new File(path + "/templates/"));
         ////设置字符集
         //configuration.setDefaultEncoding("utf-8");
-        String templateString="" +
+        String templateString = "" +
                 "<html>\n" +
                 "    <head></head>\n" +
                 " <body>\n" +
@@ -68,7 +75,7 @@ public class FreemarkTest {
         stringTemplateLoader.putTemplate("template", templateString);
         configuration.setTemplateLoader(stringTemplateLoader);
         //得到模板
-        Template template = configuration.getTemplate("template","UTF-8");
+        Template template = configuration.getTemplate("template", "UTF-8");
 
         //数据模块
         Map map = new HashMap();
@@ -82,5 +89,28 @@ public class FreemarkTest {
 
     }
 
+    @Test
+    public void banber() throws IOException, TemplateException {
+        ResponseEntity<Map> forEntity = restTemplate.getForEntity("http://localhost:31001/cms/config/5a791725dd573c3574ee333f", Map.class);
+        System.out.println(forEntity);
+
+        //创建配置类
+        Configuration configuration = new Configuration(Configuration.getVersion());
+        //设置模板路径
+        String path = this.getClass().getResource("/").getPath();
+        configuration.setDirectoryForTemplateLoading(new File(path + "/templates/"));
+        //设置字符集
+        configuration.setDefaultEncoding("utf-8");
+        //加载模块
+        Template template = configuration.getTemplate("index-banner.ftl");
+        //数据模块
+        //静态化
+        String content = FreeMarkerTemplateUtils.processTemplateIntoString(template, forEntity.getBody());
+        System.out.println(content);
+
+        //输出文件
+        FileUtils.writeByteArrayToFile(new File("/work/index_banner.html"), content.getBytes(StandardCharsets.UTF_8));
+
+    }
 
 }

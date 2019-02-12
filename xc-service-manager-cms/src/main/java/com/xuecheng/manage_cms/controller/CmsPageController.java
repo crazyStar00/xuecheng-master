@@ -37,17 +37,20 @@ public class CmsPageController implements CmsPageControllerApi {
         return new CmsPageResult(CommonCode.SUCCESS, cmsPageService.add(cmsPage));
     }
 
+    @Override
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.PUT)
     public CmsPageResult edit(@PathVariable("id") String id, @RequestBody CmsPage cmsPage) {
         Optional<CmsPage> eidt = cmsPageService.eidt(id, cmsPage);
         return new CmsPageResult(eidt.isPresent() ? CommonCode.SUCCESS : CommonCode.FAIL, eidt.orElseGet(null));
     }
 
+    @Override
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     public CmsPageResult get(@PathVariable String id) {
         return new CmsPageResult(CommonCode.SUCCESS, cmsPageService.get(id).orElseGet(null));
     }
 
+    @Override
     @RequestMapping(value = "del/{id}", method = RequestMethod.DELETE)
     public ResponseResult delete(@PathVariable("id") String id){
         cmsPageService.deleteById(id);

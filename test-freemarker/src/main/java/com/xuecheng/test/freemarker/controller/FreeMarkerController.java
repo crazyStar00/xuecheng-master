@@ -2,6 +2,7 @@ package com.xuecheng.test.freemarker.controller;
 
 import com.xuecheng.test.freemarker.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
@@ -20,7 +21,7 @@ public class FreeMarkerController {
         return "test1";
     }
 
-    @RequestMapping("test2")
+    @RequestMapping("/test2")
     public String freemarker2(Map<String, Object> map) {
         //向数据模型放数据 map.put("name","黑马程序员");
         Student stu1 = new Student();
@@ -54,5 +55,13 @@ public class FreeMarkerController {
         map.put("stuMap", stuMap);
         //返回模板文件名称
         return "test2";
+    }
+
+    @RequestMapping("/banner")
+    public String innex_bannber(Map<String,Object> map){
+        ResponseEntity<Map> forEntity = restTemplate.getForEntity("http://localhost:31001/cms/config/5a791725dd573c3574ee333f", Map.class);
+        Map body = forEntity.getBody();
+        map.putAll(body);
+        return "index-banner";
     }
 }
