@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 @Controller
-@RequestMapping("/cms/priview")
+@RequestMapping("/cms/preview")
 public class CmsPreviewController extends BaseController {
     @Autowired
     PageService pageService;
