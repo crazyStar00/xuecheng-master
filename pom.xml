@@ -6,6 +6,11 @@
     <modules>
         <module>xc-service-manager-cms</module>
         <module>test-freemarker</module>
+        <module>test-reabbitmq-producer</module>
+        <module>test-rabbitmq-consumer</module>
+        <module>test-rabbitmq-consumer</module>
+        <module>test-rabbitmq-consumer</module>
+        <module>test-rabbitmq-consumer1</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
